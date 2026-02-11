@@ -1,17 +1,16 @@
-name: Ultimate_Download
-on:
-  workflow_dispatch:
-
+name: 100_PERCENT_SUCCESS
+on: workflow_dispatch
 jobs:
-  download:
+  get_image:
     runs-on: ubuntu-latest
     steps:
-      - name: Force Download and Save
-        run: |
-          docker pull ctfhub/base_image_nginx_php_5.6
-          docker save ctfhub/base_image_nginx_php_5.6 > ctfhub_image.tar
-      - name: Upload to Browser
+      - name: Official Docker Pull
+        run: docker pull ctfhub/base_image_nginx_php_5.6
+      - name: Export Image
+        run: docker save ctfhub/base_image_nginx_php_5.6 > ctfhub.tar
+      - name: Send to Browser
         uses: actions/upload-artifact@v4
         with:
-          name: my-docker-image
-          path: ctfhub_image.tar
+          name: ctfhub-final-package
+          path: ctfhub.tar
+          retention-days: 1
