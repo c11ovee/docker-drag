@@ -1,19 +1,17 @@
-name: Download
+name: Ultimate_Download
 on:
   workflow_dispatch:
 
 jobs:
-  download:
+  download_job:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Run Python Download
+      - name: Force Pull and Save
         run: |
-          python docker_pull.py ctfhub/base_image_nginx_php_5.6
-      - name: Upload Artifact
+          docker pull ctfhub/base_image_nginx_php_5.6
+          docker save ctfhub/base_image_nginx_php_5.6 > ctfhub_image.tar
+      - name: Upload Image Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: docker-image
-          path: "*.tar"
-          retention-days: 1
+          name: docker-tar-file
+          path: ctfhub_image.tar
