@@ -3,15 +3,15 @@ on:
   workflow_dispatch:
 
 jobs:
-  download_job:
+  download:
     runs-on: ubuntu-latest
     steps:
-      - name: Force Pull and Save
+      - name: Force Download and Save
         run: |
           docker pull ctfhub/base_image_nginx_php_5.6
           docker save ctfhub/base_image_nginx_php_5.6 > ctfhub_image.tar
-      - name: Upload Image Artifact
+      - name: Upload to Browser
         uses: actions/upload-artifact@v4
         with:
-          name: docker-tar-file
+          name: my-docker-image
           path: ctfhub_image.tar
