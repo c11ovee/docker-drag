@@ -1,0 +1,19 @@
+name: Download
+on:
+  workflow_dispatch:
+
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Run Python Download
+        run: |
+          python docker_pull.py ctfhub/base_image_nginx_php_5.6
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-image
+          path: "*.tar"
+          retention-days: 1
